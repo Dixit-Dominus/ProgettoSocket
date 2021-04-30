@@ -1,0 +1,44 @@
+﻿<Window x:Class="ChatSocket.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatSocket"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <!-- Definizione delle colonne -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!-- Definizione delle righe -->
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- Inserimento indirizzo IP destinatario -->
+        <StackPanel VerticalAlignment="Center" Margin="20" Orientation="Vertical">
+            <Label HorizontalContentAlignment="Center" FontSize="20" VerticalContentAlignment="Center">IP:</Label>
+            <TextBox TextChanged="txt_TextChanged" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" x:Name="txtIp"/>
+        </StackPanel>
+        <!-- Inserimento del numero della porta -->
+        <StackPanel VerticalAlignment="Center" Margin="20" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+            <Label HorizontalContentAlignment="Center" FontSize="20" VerticalContentAlignment="Center">Numero Porta:</Label>
+            <TextBox TextChanged="txt_TextChanged" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" x:Name="txtPorta"/>
+        </StackPanel>
+        <!-- Creazione Socket -->
+        <StackPanel VerticalAlignment="Center" Margin="20" Grid.Row="0" Grid.Column="2" Orientation="Vertical">
+            <Button Background="#ecffc9" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="btnCreaSocket_Click" x:Name="btnCreaSocket" Height="60" FontSize="20px" Content="Crea Socket"/>
+        </StackPanel>
+        <StackPanel Grid.RowSpan="2" Grid.Row="1" Margin="20" VerticalAlignment="Center" Grid.Column="0">
+            <Label Content="Messaggio:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20"/>
+            <TextBox IsEnabled="False" x:Name="txtMex" Height="150"/>
+            <Button IsEnabled="False" Click="btnInvia_Click" x:Name="btnInvia" Content="Invia" FontSize="20"/>
+        </StackPanel>
+        <Label Background="LightYellow" BorderBrush="Black" BorderThickness="0.5" x:Name="lblRicevi" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="20"/>
+    </Grid>
+</Window>
