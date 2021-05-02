@@ -23,10 +23,13 @@ namespace ChatSocket
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string currentActiveIP;
+
         //Inizializzazione componenti
         public MainWindow()
         {
             InitializeComponent();
+            currentActiveIP = string.Empty;
         }
 
         //Invio del messaggio
@@ -43,8 +46,11 @@ namespace ChatSocket
         //Crazione socket di ascolto
         private void btnCreaSocket_Click(object sender, RoutedEventArgs e)
         {
+            //Utile per il controllo dell'ip del socket corrente.
+            currentActiveIP = txtIp.Text;
+
             //Definizione endpoint della macchina trasmittente
-            IPEndPoint sourceSocket = new IPEndPoint(IPAddress.Parse("10.73.0.6"), 56000);
+            IPEndPoint sourceSocket = new IPEndPoint(IPAddress.Parse(txtSIP.Text), int.Parse(txtPorta.Text));
 
             //Abilitazione della finestra di invio e ricezione messaggi.
             btnInvia.IsEnabled = true;
@@ -53,6 +59,7 @@ namespace ChatSocket
 
             //Creazione del thread di ascolto del canale.
             Thread ricezione = new Thread(new ParameterizedThreadStart(SocketReceive));
+            ricezione.Start(sourceSocket);
         }
 
         //Metodo di ricezione del socket. (Gestito dal thread quindi mettendo async non si blocca l'interfaccia grafica.)
@@ -87,7 +94,7 @@ namespace ChatSocket
                         //Viene aggiornata l'interfaccia grafica in modo asincrono.
                         this.Dispatcher.BeginInvoke(new Action(() =>
                         {
-                            lblRicevi.Content = messaggio;
+                            lstMex.Items.Add(messaggio);
                         }));
                     }
                 }
@@ -109,17 +116,21 @@ namespace ChatSocket
             socket.SendTo(byteInviati, destinationEndPoint);
         }
 
+        //Evento per il controllo del cambio di ip/porta
         private void txt_TextChanged(object sender, TextChangedEventArgs e)
         {
             bool confirm1 = false;
             bool confirm2 = false;
-            if (!string.IsNullOrWhiteSpace(txtIp.Text))
+            if (!string.IsNullOrWhiteSpace(txtIp.Text) && currentActiveIP != txtIp.Text)
             {
                 confirm1 = true;
             }
             if (!string.IsNullOrWhiteSpace(txtPorta.Text))
             {
-                confirm2 = true;
+                if (!(int.Parse(txtPorta.Text) > 65535))
+                {
+                    confirm2 = true;
+                }
             }
             if (confirm2 && confirm1)
             {

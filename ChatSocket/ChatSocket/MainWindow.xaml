@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChatSocket"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="UDP Chat" Height="580" Width="800">
     <Grid>
         <!-- Definizione delle colonne -->
         <Grid.ColumnDefinitions>
@@ -18,27 +18,33 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!-- Inserimento indirizzo IP d'origine -->
+        <StackPanel VerticalAlignment="Center" Margin="20" Grid.Row="0" Orientation="Vertical">
+            <Label HorizontalContentAlignment="Center" FontSize="20" VerticalContentAlignment="Center">Source IP:</Label>
+            <TextBox TextChanged="txt_TextChanged" x:Name="txtSIP" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" />
+        </StackPanel>
         <!-- Inserimento indirizzo IP destinatario -->
-        <StackPanel VerticalAlignment="Center" Margin="20" Orientation="Vertical">
-            <Label HorizontalContentAlignment="Center" FontSize="20" VerticalContentAlignment="Center">IP:</Label>
+        <StackPanel VerticalAlignment="Center" Margin="20" Grid.Row="1" Orientation="Vertical">
+            <Label HorizontalContentAlignment="Center" FontSize="20" VerticalContentAlignment="Center">Destination IP:</Label>
             <TextBox TextChanged="txt_TextChanged" Height="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" x:Name="txtIp"/>
         </StackPanel>
         <!-- Inserimento del numero della porta -->
-        <StackPanel VerticalAlignment="Center" Margin="20" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+        <StackPanel VerticalAlignment="Center" Margin="20" Grid.Row="1" Grid.Column="1" Orientation="Vertical">
             <Label HorizontalContentAlignment="Center" FontSize="20" VerticalContentAlignment="Center">Numero Porta:</Label>
             <TextBox TextChanged="txt_TextChanged" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="30" x:Name="txtPorta"/>
         </StackPanel>
         <!-- Creazione Socket -->
-        <StackPanel VerticalAlignment="Center" Margin="20" Grid.Row="0" Grid.Column="2" Orientation="Vertical">
-            <Button Background="#ecffc9" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="btnCreaSocket_Click" x:Name="btnCreaSocket" Height="60" FontSize="20px" Content="Crea Socket"/>
+        <StackPanel Grid.RowSpan="2" VerticalAlignment="Center" Height="200" Margin="20" Grid.Row="0" Grid.Column="2" Orientation="Vertical">
+            <Button  Background="#ecffc9" Height="200" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="btnCreaSocket_Click" x:Name="btnCreaSocket"  FontSize="20px" Content="Crea Socket" IsEnabled="False"/>
         </StackPanel>
-        <StackPanel Grid.RowSpan="2" Grid.Row="1" Margin="20" VerticalAlignment="Center" Grid.Column="0">
+        <StackPanel Grid.RowSpan="2" Grid.Row="2" Margin="20" VerticalAlignment="Center" Grid.Column="0">
             <Label Content="Messaggio:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20"/>
             <TextBox IsEnabled="False" x:Name="txtMex" Height="150"/>
             <Button IsEnabled="False" Click="btnInvia_Click" x:Name="btnInvia" Content="Invia" FontSize="20"/>
         </StackPanel>
-        <Label Background="LightYellow" BorderBrush="Black" BorderThickness="0.5" x:Name="lblRicevi" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="20"/>
+        <ListBox Background="LightYellow" BorderBrush="Black" BorderThickness="0.5" x:Name="lstMex" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="20"/>
     </Grid>
 </Window>

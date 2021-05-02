@@ -6,4 +6,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="MainWindow.xaml~RF22a5fe.TMP" />
+  </ItemGroup>
+
 </Project>
